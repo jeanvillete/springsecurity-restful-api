@@ -1,3 +1,5 @@
-This branch (dev1) aims to hold the very fist code in order to allow the communication with a basic rest/restful api.
+On this branch (dev2) I've integrated the spring security to the application, where the proper definitions were set on;
+--> spring-application-context.xml; http with an intercept url, alongside the proper definition for http-basic, also a sample/fake user definition
+--> web.xml; the proper servlet filter definition, required to spring security usage.
 
-Until here, neither security (spring security), CSRF nor CORS was implemented/configured, but only spring mvc with controllers annotated as @RestController.
+Nothing has been defined yet for CSRF nor CORS.

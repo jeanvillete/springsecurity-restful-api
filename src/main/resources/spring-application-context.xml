@@ -3,12 +3,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:sec="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
 						http://www.springframework.org/schema/context
 						http://www.springframework.org/schema/context/spring-context-4.2.xsd
 						http://www.springframework.org/schema/mvc
-     					http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd" >
+     					http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+     					http://www.springframework.org/schema/security
+						http://www.springframework.org/schema/security/spring-security.xsd" >
 	
 	<!-- allowing annotation driven configuration and then mapping the proper package to be mapped -->
 	<context:annotation-config />
@@ -16,5 +19,20 @@
 
 	<!-- mandatory declaration in order get spring mvc working -->
 	<mvc:annotation-driven/>
+
+	<!-- minimal required configurations for spring security -->
+	<sec:http >
+		<sec:intercept-url pattern="/**" access="authenticated"/>
+		<sec:http-basic/>
+	</sec:http>
+	
+	<!-- setting a sample/fake user for login purpose -->
+	<sec:authentication-manager>
+		<sec:authentication-provider>
+			<sec:user-service>
+				<sec:user name="bob" password="123456" authorities="ROLE_USER"/>
+			</sec:user-service>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
 
 </beans>

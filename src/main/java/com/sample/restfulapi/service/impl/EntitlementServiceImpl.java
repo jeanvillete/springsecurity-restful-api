@@ -10,7 +10,7 @@ import com.sample.restfulapi.service.EntitlementService;
 public class EntitlementServiceImpl implements EntitlementService {
 
 	public Entitlement get( String userName ) {
-		if ( StringUtils.hasText( userName ) && userName.equals( "sampleuser" ) ) {
+		if ( StringUtils.hasText( userName ) && userName.equals( "bob" ) ) {
 			Entitlement entitlement = new Entitlement();
 			entitlement.addRight( "accessright_1" );
 			entitlement.addRight( "accessright_2" );

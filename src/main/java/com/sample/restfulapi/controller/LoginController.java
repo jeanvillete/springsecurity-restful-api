@@ -1,9 +1,10 @@
 package com.sample.restfulapi.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,9 +24,11 @@ public class LoginController implements InitializingBean {
 		Assert.notNull( this.service, "Property 'service' was not properly initialized." );
 	}
 	
-	@RequestMapping( value = "/login/{userName}", method = RequestMethod.GET )
-	public Entitlement initialize( @PathVariable String userName ) {
-		return this.service.get( userName );
+	@RequestMapping( value = "/login", method = RequestMethod.GET )
+	public Entitlement initialize( Principal principal ) {
+		if ( principal == null )
+			throw new IllegalArgumentException( "Invalid argument: 'principal'. It was expected a valid instance." );
+		return this.service.get( principal.getName() );
 	}
 	
 }
