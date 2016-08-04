@@ -19,9 +19,16 @@
 
 	<!-- mandatory declaration in order get spring mvc working -->
 	<mvc:annotation-driven/>
+	<mvc:default-servlet-handler/>
 
 	<!-- minimal required configurations for spring security -->
 	<sec:http >
+		<sec:intercept-url pattern="/" access="permitAll"/>
+		<sec:intercept-url pattern="/index.html" access="permitAll"/>
+		<sec:intercept-url pattern="/home.html" access="permitAll"/>
+		<sec:intercept-url pattern="/login.html" access="permitAll"/>
+		<sec:intercept-url pattern="/css/*" access="permitAll"/>
+		<sec:intercept-url pattern="/js/*" access="permitAll"/>
 		<sec:intercept-url pattern="/**" access="authenticated"/>
 		<sec:http-basic/>
 		<sec:csrf token-repository-ref="customCookieCsrf"/>
