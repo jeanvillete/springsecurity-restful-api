@@ -1,7 +1,6 @@
-On this branch (dev2) I've integrated the spring security to the application, where the proper definitions were set on;
+The branch dev3 aims to configure CSRF on spring security, for protection against CSRF, the definitions go on;
 
---> spring-application-context.xml; http with an intercept url, alongside the proper definition for http-basic, also a sample/fake user definition
+--> spring-application-context.xml; just mapping the proper configuration for CSRF.
 
---> web.xml; the proper servlet filter definition, required to spring security usage.
 
-Nothing has been defined yet for CSRF nor CORS.
+Nothing has been defined yet for CORS.
