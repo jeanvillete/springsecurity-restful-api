@@ -21,16 +21,16 @@
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
 
+	<!-- static resources are public, they don't require authentication -->
+	<sec:http security="none" pattern="/"/>
+	<sec:http security="none" pattern="/**.html"/>
+	<sec:http security="none" pattern="/css/*"/>
+	<sec:http security="none" pattern="/js/*"/>
+
 	<!-- minimal required configurations for spring security -->
-	<sec:http >
-		<sec:intercept-url pattern="/" access="permitAll"/>
-		<sec:intercept-url pattern="/index.html" access="permitAll"/>
-		<sec:intercept-url pattern="/home.html" access="permitAll"/>
-		<sec:intercept-url pattern="/login.html" access="permitAll"/>
-		<sec:intercept-url pattern="/css/*" access="permitAll"/>
-		<sec:intercept-url pattern="/js/*" access="permitAll"/>
+	<sec:http auto-config="true" >
 		<sec:intercept-url pattern="/**" access="authenticated"/>
-		<sec:http-basic/>
+		<sec:http-basic entry-point-ref="customBasicAuthenticationEntryPoint"/>
 		<sec:csrf token-repository-ref="customCookieCsrf"/>
 	</sec:http>
 	
@@ -45,6 +45,14 @@
 	this is another important security feature (preventing session fixation attacks).
 	 -->
 	<bean id="customCookieCsrf" class="org.springframework.security.web.csrf.CookieCsrfTokenRepository" factory-method="withHttpOnlyFalse">
+	</bean>
+	
+	<!-- 
+	Spring Security responds to it by not sending a "WWW-Authenticate" header in a 401 response,
+	and thus the browser will not pop up an authentication dialog
+	 -->
+	<bean id="customBasicAuthenticationEntryPoint" class="com.sample.restfulapi.security.CustomBasicAuthenticationEntryPoint">
+		<constructor-arg value="RealmName"></constructor-arg>
 	</bean>
 	
 	<!-- setting a sample/fake user for login purpose -->
